@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f9c5d1, #a6c1ee);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        
+        .message-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 90%;
+            width: 320px;
+            text-align: center;
+            display: none;
+        }
+        
+        .message {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .button-container {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .enter-button {
+            background-color: #ff7e7e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .enter-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .image-container {
+            display: none;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .image-container img {
+            width: 320px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .final-message {
+            display: none;
+            font-size: 36px;
+            color: white;
+            text-align: center;
+            font-family: 'cursive', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 20px;
+            width: 90%;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+            color: red;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .like-button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            font-size: 36px;
+            color: red;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="decorations">
+        <div class="decoration" style="top: 10%; left: 10%;">⭐</div>
+        <div class="decoration" style="top: 30%; left: 5%;">🎂</div>
+        <div class="decoration" style="top: 70%; left: 15%;">🎁</div>
+        <div class="decoration" style="top: 20%; right: 10%;">🎈</div>
+        <div class="decoration" style="top: 60%; right: 5%;">🎀</div>
+        <div class="decoration" style="top: 80%; right: 15%;">✨</div>
+    </div>
+    
+    <div id="message1" class="message-container">
+        <p class="message">😊 It's a special day for me...<br>❤️</p>
+    </div>
+    
+    <div id="message2" class="message-container">
+        <p class="message">✨ I have something for you...<br>✨</p>
+    </div>
+    
+    <div id="buttonContainer" class="button-container">
+        <button id="enterButton" class="enter-button">Enter My Day 🎂</button>
+    </div>
+    
+    <div id="imageContainer" class="image-container">
+        <img src="/api/placeholder/320/180" alt="Cute birthday characters">
+    </div>
+    
+    <div id="finalMessage" class="final-message">
+        Happy Birthday 🎈 meri boni
+    </div>
+    
+    <button class="like-button">❤️</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first message after 1 second
+            setTimeout(function() {
+                document.getElementById('message1').style.display = 'block';
+            }, 1000);
+            
+            // Show second message after 3 seconds
+            setTimeout(function() {
+                document.getElementById('message2').style.display = 'block';
+            }, 3000);
+            
+            // Show button after 5 seconds
+            setTimeout(function() {
+                document.getElementById('buttonContainer').style.display = 'block';
+            }, 5000);
+            
+            // Set up button click event
+            document.getElementById('enterButton').addEventListener('click', function() {
+                // Hide messages and button
+                document.getElementById('message1').style.display = 'none';
+                document.getElementById('message2').style.display = 'none';
+                document.getElementById('buttonContainer').style.display = 'none';
+                
+                // Show image
+                document.getElementById('imageContainer').style.display = 'block';
+                
+                // Show final message after 2 seconds
+                setTimeout(function() {
+                    document.getElementById('imageContainer').style.display = 'none';
+                    document.getElementById('finalMessage').style.display = 'block';
+                    
+                    // Create confetti effect
+                    createConfetti();
+                    
+                    // Create floating hearts
+                    createHearts();
+                }, 2000);
+            });
+            
+            function createConfetti() {
+                const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#ff99c8', '#a9def9'];
+                
+                for (let i = 0; i < 100; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    
+                    // Random properties
+                    const size = Math.random() * 10 + 5;
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 5;
+                    const duration = Math.random() * 5 + 5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    confetti.style.width = `${size}px`;
+                    confetti.style.height = `${size}px`;
+                    confetti.style.left = `${left}%`;
+                    confetti.style.animationDelay = `${delay}s`;
+                    confetti.style.animationDuration = `${duration}s`;
+                    confetti.style.backgroundColor = color;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remove confetti after animation ends
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, (delay + duration) * 1000);
+                }
+            }
+            
+            function createHearts() {
+                const interval = setInterval(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.textContent = '❤️';
+                    
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 3;
+                    const duration = Math.random() * 3 + 3;
+                    
+                    heart.style.left = `${left}%`;
+                    heart.style.bottom = '10%';
+                    heart.style.animationDelay = `${delay}s`;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, (delay + duration) * 1000);
+                }, 300);
+                
+                // Stop after 10 seconds
+                setTimeout(() => {
+                    clearInterval(interval);
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>
